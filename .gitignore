@@ -1,0 +1,61 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files. Everything except the documented template — .env arrived with the
+# scaffold this project was generated from and holds live third-party keys, and
+# .env.local holds the database URL and the session secret.
+.env
+.env.*
+!.env.example
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+.data/
+
+# ~96MB download cache for scripts/build-geography.mjs — the 37 raw state files
+# from the INEC scrape. The built tables in public/geo/ are committed; this is
+# not. Delete it to force a re-download, or run the script with --refresh.
+scripts/.inec-source/
+scripts/.inec-source.json
+
+# Prisma client is generated from prisma/schema.prisma by `npm run db:generate`
+lib/generated/
+
+# geoBoundaries download cache. 4.3MB of raw GeoJSON that scripts/build-map.mjs
+# re-fetches on demand; the committed artefact is the projected output under
+# public/geo/map, which is what the app actually serves.
+scripts/.boundaries/

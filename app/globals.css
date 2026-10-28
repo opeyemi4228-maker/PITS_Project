@@ -1,0 +1,521 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ------------------------------------------------------------------
+   PITS Design System — "Hope In Action"
+   Photography first. Warm paper canvas, white cards with soft
+   corners and soft shadows, frosted glass over imagery, pill-shaped
+   actions, and calm semibold headlines set large and close.
+
+   Colour is OKLCH so every ramp is perceptually even and every tint
+   holds its hue as lightness changes. Both anchors are sampled from
+   the PITS / Amvora torch mark (scripts/build-brand-assets.mjs):
+   brand-500 = #F83020 (the flame and the centre shirt)
+   ember-500 = #F8A840 (the amber shirt)
+------------------------------------------------------------------- */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ---- Brand: torch red ----------------------------------------
+     500 is the literal mark red, oklch(63.3% 0.235 29.7). Like the
+     signal red below it is a poor surface for body text (about 3.9:1 on
+     white); 600 is the step to set text on or in. ---------------- */
+  --color-brand-50: oklch(97.2% 0.016 31);
+  --color-brand-100: oklch(94.5% 0.036 31);
+  --color-brand-200: oklch(89% 0.075 31);
+  --color-brand-300: oklch(81.5% 0.125 31);
+  --color-brand-400: oklch(72% 0.185 31);
+  --color-brand-500: oklch(63.3% 0.235 29.7); /* #F83020, the torch */
+  --color-brand-600: oklch(54.9% 0.205 30); /* text on white, buttons */
+  --color-brand-700: oklch(46.5% 0.172 30);
+  --color-brand-800: oklch(38% 0.138 30);
+  --color-brand-900: oklch(30% 0.105 30);
+  --color-brand-950: oklch(20% 0.068 30);
+
+  /* ---- Accent: Amvora amber ------------------------------------
+     500 is the mark's amber, and is meant to carry ink-950 type
+     (about 11:1). 600 and below turn towards orange as they darken,
+     so an eyebrow set in ember-600 on white still reads as warm
+     rather than as mud. --------------------------------------- */
+  --color-ember-50: oklch(97.6% 0.018 72);
+  --color-ember-100: oklch(94.8% 0.042 72);
+  --color-ember-200: oklch(90% 0.08 71);
+  --color-ember-300: oklch(85.5% 0.115 70);
+  --color-ember-400: oklch(82.5% 0.135 69.5);
+  --color-ember-500: oklch(79.2% 0.148 69.2); /* #F8A840 */
+  --color-ember-600: oklch(62% 0.15 58);
+  --color-ember-700: oklch(52% 0.135 52);
+  --color-ember-800: oklch(42% 0.11 50);
+  --color-ember-900: oklch(33% 0.085 50);
+  --color-ember-950: oklch(22% 0.055 50);
+
+  /* ---- Signal red ----------------------------------------------
+     Pure #FF0000, oklch(62.8% 0.258 29.2): a hotter, purer red than
+     the torch, kept for errors, live markers and the "refused" states
+     in the secretariat, where it must not be mistaken for the brand.
+
+     Note that 500 (pure red) is a poor *surface*: it
+     carries only 4.0:1 against white and 4.2:1 against ink-950, both
+     under the 4.5:1 body-text target. Use it for marks, rules and
+     large display type; use 600 (5.4:1 on white) where text sits on
+     top of it. ------------------------------------------------- */
+  --color-red-50: oklch(97% 0.014 29.2);
+  --color-red-100: oklch(94% 0.034 29.2);
+  --color-red-200: oklch(88% 0.075 29.2);
+  --color-red-300: oklch(79% 0.135 29.2);
+  --color-red-400: oklch(70.5% 0.2 29.2);
+  --color-red-500: oklch(62.8% 0.258 29.2); /* #FF0000 */
+  --color-red-600: oklch(55% 0.222 29.2); /* #D50B06, 5.4:1 on white */
+  --color-red-700: oklch(46% 0.175 29.2);
+  --color-red-800: oklch(38% 0.14 29.2);
+  --color-red-900: oklch(31% 0.11 29.2);
+  --color-red-950: oklch(21% 0.075 29.2);
+
+  /* ---- Ceremonial gold (seals, honours, rules) ----------------- */
+  --color-gold-300: oklch(88% 0.09 80);
+  --color-gold-400: oklch(82% 0.115 80);
+  --color-gold-500: oklch(75.1% 0.13 80);
+  --color-gold-600: oklch(66% 0.12 80);
+  --color-gold-700: oklch(55% 0.1 80);
+
+  /* ---- Ink: true neutrals -------------------------------------- */
+  /* These carried a warm cast (chroma .004–.012 at hue 85) that read as
+     brown rather than as grey. At the light end especially, ink-50 was a
+     cream tint, and a page banded in it looked beige next to the white
+     sections above and below it — the "brownish white" this palette is
+     explicitly meant not to have. Chroma is 0 now, so a grey is a grey, and
+     white next to ink-50 reads as two steps of the same neutral rather than
+     as two different papers. Hue is kept at 85 so any future reintroduction
+     of warmth has somewhere to go. */
+  --color-ink-50: oklch(97.6% 0 85);
+  --color-ink-100: oklch(95% 0 85);
+  --color-ink-200: oklch(90.5% 0 85);
+  --color-ink-300: oklch(83% 0 85);
+  --color-ink-400: oklch(68% 0 85);
+  --color-ink-500: oklch(55% 0 85);
+  --color-ink-600: oklch(44% 0 85);
+  --color-ink-700: oklch(34% 0 85);
+  --color-ink-800: oklch(25% 0 85);
+  --color-ink-900: oklch(17% 0 85);
+  --color-ink-950: oklch(11% 0 85);
+
+  /* Paper: the page tone. A warm sand cast rather than #fff, so white
+     cards lift off it without needing a border, and photography and
+     flat colour both sit on it comfortably. */
+  --color-paper: oklch(97.4% 0.007 75);
+  /* The dark band: near-black with a trace of the torch in it. */
+  --color-night: oklch(16% 0.012 45);
+
+  /* ---- Typography ---------------------------------------------
+     Montserrat throughout (see app/layout.js).
+     Hierarchy comes from size and weight, never from capitals: an
+     all-caps line is a shout, and a movement about hope should not
+     need to shout. */
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid scale: small text stays calm, display type goes big.
+     Clamped so it tracks the viewport instead of stepping through
+     text-3xl sm:text-4xl md:text-6xl lg:text-8xl ladders. */
+  --text-fluid-xs: clamp(0.6875rem, 0.66rem + 0.14vw, 0.75rem);
+  --text-fluid-sm: clamp(0.8125rem, 0.79rem + 0.14vw, 0.875rem);
+  --text-fluid-base: clamp(0.9375rem, 0.91rem + 0.16vw, 1rem);
+  --text-fluid-lg: clamp(1.0625rem, 1rem + 0.32vw, 1.25rem);
+  --text-fluid-xl: clamp(1.25rem, 1.13rem + 0.6vw, 1.625rem);
+  --text-fluid-2xl: clamp(1.5rem, 1.28rem + 1.1vw, 2.25rem);
+  --text-fluid-3xl: clamp(1.875rem, 1.5rem + 1.9vw, 3.125rem);
+  --text-fluid-4xl: clamp(2.375rem, 1.75rem + 3.1vw, 4.5rem);
+  --text-fluid-5xl: clamp(2.875rem, 1.9rem + 4.9vw, 6.5rem);
+  --text-fluid-6xl: clamp(3.25rem, 1.9rem + 6.8vw, 8.5rem);
+  --text-fluid-7xl: clamp(3.5rem, 1.6rem + 9.5vw, 11rem);
+
+  /* ---- Shape ---------------------------------------------------
+     Soft. Cards, panels and photographs round off; actions are pills.
+     `--radius-card` is for anything that sits in a grid, `--radius-panel`
+     for full-width bands and hero frames inset from the viewport. */
+  --radius-card: 1.25rem;
+  --radius-panel: 2rem;
+  --radius-pill: 999px;
+
+  /* ---- Elevation ----------------------------------------------
+     Warm, wide and low-contrast: a card should look like it is resting
+     on the page, not hovering over it. */
+  --shadow-e1: 0 1px 2px oklch(25% 0.02 50 / 0.05);
+  --shadow-e2: 0 1px 2px oklch(25% 0.02 50 / 0.04), 0 8px 24px -10px oklch(25% 0.02 50 / 0.12);
+  --shadow-e3: 0 2px 6px oklch(25% 0.02 50 / 0.05), 0 22px 48px -20px oklch(25% 0.02 50 / 0.22);
+  --shadow-e4: 0 30px 80px -28px oklch(20% 0.03 40 / 0.45);
+
+  /* ---- Motion -------------------------------------------------- */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --animate-rise: rise 0.7s var(--ease-out-quart) both;
+  --animate-marquee: marquee 42s linear infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1.25rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+}
+
+/* Semantic layer: these flip in dark mode, the ramps above never do. */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-hairline: var(--hairline);
+  --color-rule: var(--rule-color);
+  --color-content: var(--content);
+  --color-content-muted: var(--content-muted);
+  --color-content-subtle: var(--content-subtle);
+}
+
+/* Warm paper underneath, white cards on top, near-black bands for
+   photography. Torch red and amber are the only two colours. */
+:root {
+  --canvas: var(--color-paper);
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --hairline: oklch(91% 0.008 70);
+  --rule-color: var(--hairline);
+  --content: var(--color-ink-950);
+  --content-muted: var(--color-ink-600);
+  --content-subtle: var(--color-ink-500);
+}
+
+.dark {
+  --canvas: var(--color-ink-950);
+  /* Neutral, in step with the ink ramp above. */
+  --surface: oklch(15% 0 85);
+  --surface-raised: oklch(19% 0 85);
+  --hairline: oklch(28% 0 85);
+  --rule-color: oklch(88% 0 85);
+  --content: var(--color-ink-50);
+  --content-muted: var(--color-ink-300);
+  --content-subtle: var(--color-ink-400);
+}
+
+/* ------------------------------------------------------------------
+   Base
+------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchor targets clear of the sticky masthead */
+    scroll-padding-top: 6rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--content);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    /* Never let a full-bleed section create a horizontal scrollbar */
+    overflow-x: clip;
+  }
+
+  /* Bold and close. Montserrat is a wide geometric face, so tracking is
+     pulled in only a little as the size grows: large headlines at
+     -0.03em, small ones at -0.02em. A touch more leading than a narrow
+     grotesk needs, because Montserrat's tall x-height crowds otherwise. */
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* One visible focus ring for the whole product. */
+  :focus-visible {
+    outline: 3px solid var(--color-ember-500);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-600);
+    color: white;
+  }
+
+  /* A styled scrollbar beats `display: none`, which removed the only
+     affordance telling users the page had more content. */
+  @supports (scrollbar-color: auto) {
+    html {
+      scrollbar-color: var(--color-ink-400) transparent;
+      scrollbar-width: thin;
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-400);
+    border: 3px solid var(--canvas);
+    border-radius: 999px;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+  }
+
+  /* Grid and flex children default to `min-width: auto`, meaning they refuse
+     to shrink below their content's intrinsic width. One long unbreakable
+     string or a default-sized <input> then widens the whole track, and the
+     page grows a horizontal scrollbar on mobile, which is exactly what was
+     happening on /connect and /support.
+
+     `:where()` keeps this at zero specificity, so any explicit `min-w-*`
+     utility still wins, and `shrink-0` items are unaffected because
+     flex-shrink: 0 takes precedence over a zero min-width. */
+  :where(.grid, .flex) > * {
+    min-width: 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Components: the vocabulary every page reuses
+------------------------------------------------------------------- */
+@layer components {
+  /* Page gutter + measure. Replaces the six different
+     `max-w-7xl px-4 sm:px-6 lg:px-12` variants in the codebase. */
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 88rem;
+    padding-inline: clamp(1.25rem, 0.4rem + 4vw, 5rem);
+  }
+  .shell-wide {
+    max-width: 110rem;
+  }
+  .shell-text {
+    max-width: 52rem;
+  }
+
+  /* Vertical rhythm */
+  .section {
+    padding-block: clamp(4.5rem, 2.5rem + 9vw, 11rem);
+  }
+  .section-tight {
+    padding-block: clamp(3rem, 2rem + 5vw, 6rem);
+  }
+
+  /* Section label: a small pill with an amber dot. Sentence case, so
+     it reads as a label and not as a headline competing with the one
+     beneath it. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    padding: 0.375rem 0.875rem 0.375rem 0.75rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--content);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 999px;
+    background: var(--color-ember-500);
+    flex-shrink: 0;
+  }
+  .eyebrow-center {
+    margin-inline: auto;
+  }
+  .eyebrow-inverse {
+    border-color: rgb(255 255 255 / 0.16);
+    background: rgb(255 255 255 / 0.08);
+    color: #fff;
+    backdrop-filter: blur(12px);
+  }
+
+  /* Body copy */
+  .prose-body {
+    font-size: var(--text-fluid-lg);
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: -0.005em;
+    max-width: 64ch;
+    color: var(--content-muted);
+  }
+
+  /* A card: white, soft-cornered, resting on the paper. */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-e2);
+    transition:
+      box-shadow 0.45s var(--ease-out-quart),
+      transform 0.45s var(--ease-out-quart),
+      border-color 0.45s var(--ease-out-quart);
+  }
+  .card-interactive:hover {
+    box-shadow: var(--shadow-e3);
+    transform: translateY(-2px);
+  }
+
+  /* A grid of cards. Pages used to draw grids as one grey sheet split
+     by 1px gaps; `.tiles` gives every child its own card instead, so
+     the old markup (`<ul class="tiles">` around `<li class="bg-white">`)
+     needs no other change. */
+  .tiles {
+    gap: clamp(0.75rem, 0.5rem + 0.8vw, 1.25rem);
+  }
+  .tiles > * {
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    box-shadow: var(--shadow-e2);
+  }
+
+  /* Frosted glass, for panels laid over photography. */
+  .glass {
+    border: 1px solid rgb(255 255 255 / 0.18);
+    background: rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+  }
+  .glass-light {
+    border: 1px solid rgb(255 255 255 / 0.6);
+    background: rgb(255 255 255 / 0.86);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow: var(--shadow-e4);
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--hairline);
+  }
+  .rule-hair {
+    height: 1px;
+    background: var(--hairline);
+  }
+
+  /* Skip link: first tab stop on every page */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 200;
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    background: var(--color-ink-950);
+    color: white;
+    font-weight: 600;
+    transform: translateY(-160%);
+    transition: transform 0.25s var(--ease-out-quart);
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+------------------------------------------------------------------- */
+
+/* Breaks an element out of `.shell` to the full viewport width. */
+@utility bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* Fades a marquee out at both edges instead of hard-cutting it */
+@utility edge-fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 4%,
+    black 96%,
+    transparent
+  );
+}
+
+/* Hides a scroll container's own bar without touching the page's. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Accessibility: honour the OS motion setting everywhere.
+------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
